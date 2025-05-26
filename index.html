@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="notification" class="text-lg border border-blue p-6 mx-[600px] text-blue-600"></div>
+    <div id="timer" class="text-xl font-bold text-red-600"></div>   
+<script>
+  const notification = document.getElementById("notification");
+
+  notification.textContent = "Download will start shortly...";
+
+  setTimeout(() => {
+    notification.textContent = "Download has started...";
+  }, 3000);
+
+  
+  let timeLeft = 10; 
+  const timerElement = document.getElementById("timer");
+
+  function updateTimer() {
+    if (timeLeft >= 0) {
+      timerElement.textContent = `Time left: ${timeLeft} seconds`;
+      timeLeft--;
+    } else {
+      clearInterval(countdown);
+      timerElement.textContent = "Countdown complete!";
+    }
+  }
+
+  const countdown = setInterval(updateTimer, 1000);
+  updateTimer(); 
+
+</script>
+   
+</body>
+</html>

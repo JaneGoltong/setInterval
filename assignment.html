@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Async Simulation</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        
+    </head>
+    <body>
+        <div class="border border-blue-400 px-5 mr-40 w-[650px] py-10 ml-20">
+            <h2 class="bold col pb-10 text-center"> Registration </h2>
+            <div class="flex flex-col gap-8 pl-20">
+                <div class="border border-blue-400 px-5 mr-40 w-[450px]"><input type="text" id="registerName" placeholder="Enter username" /></div>
+                <div class="border border-blue-400 px-5 mr-40 w-[450px]"><input type="email" id="email" placeholder="Enter email" /></div> 
+                <div class="border border-blue-400 px-5 mr-40 w-[450px]"><input type="password" id="password" placeholder="Enter password" /></div>
+                <div class="border border-blue-400 px-5 mr-40 w-[450px]"><input type="date" id="dateOfBirth" placeholder="Enter 25-05-2025" /></div>  
+
+
+            </div>
+        
+
+            <button id="onclick">Start Registration</button>
+            <div id="registerOutput" class="output"></div>
+
+            <hr />
+
+           
+
+        </div>
+        <div>
+             <h2> Delayed Greeting</h2>
+             <div>
+                <input type="text" id="greetingName" placeholder="Enter your name" />
+                <button>Greet Me</button>
+                <div id="greetingOutput" class="output"></div>
+             </div>
+            
+        </div>
+        <script>
+            document.querySelector("button").addEventListener("click", runGreeting);
+            function registerUser(user) {
+            return new Promise((resolve, reject) => {
+                log('registerOutput', 'Registering user...');
+                setTimeout(() => {
+                if (user) resolve(` User ${user} registered`);
+                else reject("Name cannot be empty");
+                }, 1000);
+            });
+            }
+
+            function sendEmail(user) {
+            return new Promise((resolve) => {
+                log('registerOutput', 'Sending confirmation email...');
+                setTimeout(() => resolve(` Email sent to ${user}`), 1000);
+            });
+            }
+
+            function grantAccess(user) {
+            return new Promise((resolve) => {
+                log('registerOutput', 'Granting access...');
+                setTimeout(() => resolve(` Access granted to ${user}`), 1000);
+            });
+            }
+
+            function startRegistration() {
+            const name = document.getElementById("registerName").value.trim();
+            clearLog("registerOutput");
+
+            registerUser(name)
+                .then(res => { log("registerOutput", res); return sendEmail(name); })
+                .then(res => { log("registerOutput", res); return grantAccess(name); })
+                .then(res => { log("registerOutput", res); })
+                .catch(err => { log("registerOutput", err); });
+            }
+
+            function delayedGreeting(name) {
+            return new Promise((resolve, reject) => {
+                if (!name) reject(" N pl-20ame cannot be empty");
+                else setTimeout(() => resolve(` Hello, ${name}!`), 2000);
+            });
+            }
+
+            function runGreeting() {
+            const name = document.getElementById("greetingName").value.trim();
+            clearLog("greetingOutput");
+
+            delayedGreeting(name)
+                .then(message => log("greetingOutput", message))
+                .catch(error => log("greetingOutput", error));
+            }
+
+            
+            function log(containerId, message) {
+            const container = document.getElementById(containerId);
+            const p = document.createElement("div");
+            p.className = "log";
+            p.textContent = message;
+            container.appendChild(p);
+            }
+
+            function clearLog(containerId) {
+            document.getElementById(containerId).innerHTML = "";
+            }
+        </script>
+
+    </body>
+</html>
