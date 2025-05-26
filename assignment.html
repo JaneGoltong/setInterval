@@ -4,60 +4,61 @@
         <meta charset="UTF-8">
         <title>Async Simulation</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        
     </head>
-    <body>
-        <div class="border border-blue-400 px-5 mr-40 w-[650px] py-10 ml-20">
-            <h2 class="bold col pb-10 text-center"> Registration </h2>
-            <div class="flex flex-col gap-8 pl-20">
-                <div class="border border-blue-400 px-5 mr-40 w-[450px]"><input type="text" id="registerName" placeholder="Enter username" /></div>
-                <div class="border border-blue-400 px-5 mr-40 w-[450px]"><input type="email" id="email" placeholder="Enter email" /></div> 
-                <div class="border border-blue-400 px-5 mr-40 w-[450px]"><input type="password" id="password" placeholder="Enter password" /></div>
-                <div class="border border-blue-400 px-5 mr-40 w-[450px]"><input type="date" id="dateOfBirth" placeholder="Enter 25-05-2025" /></div>  
+    <body class="bg-gray-50 p-8">
 
-
-            </div>
-        
-
-            <button id="onclick">Start Registration</button>
-            <div id="registerOutput" class="output"></div>
-
-            <hr />
-
-           
-
-        </div>
-        <div>
-             <h2> Delayed Greeting</h2>
-             <div>
-                <input type="text" id="greetingName" placeholder="Enter your name" />
-                <button>Greet Me</button>
-                <div id="greetingOutput" class="output"></div>
-             </div>
+        <div class="border border-blue-400 p-6 w-full max-w-xl mx-auto bg-white rounded shadow-md">
+            <h2 class="font-bold text-2xl text-center mb-8"> Registration</h2>
             
+            <div class="flex flex-col gap-5 mb-6">
+            <input type="text" id="registerName" placeholder="Enter username" class="border px-4 py-2 w-full rounded" required />
+            <input type="email" id="email" placeholder="Enter email" class="border px-4 py-2 w-full rounded" required />
+            <input type="password" id="password" placeholder="Enter password" class="border px-4 py-2 w-full rounded" required />
+            <input type="date" id="dateOfBirth" class="border px-4 py-2 w-full rounded" required />
+            </div>
+
+            <button id="onclick" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Start Registration</button>
+            
+            <div id="registerOutput" class="mt-4 text-sm text-gray-700 space-y-2"></div>
         </div>
+
+
+        <div class="border border-green-400 p-6 w-full max-w-xl mx-auto mt-10 bg-white rounded shadow-md">
+            <h2 class="font-bold text-2xl text-center mb-6"> Delayed Greeting</h2>
+            
+            <div class="flex gap-3 mb-4">
+            <input type="text" id="greetingName" placeholder="Enter your name" class="border px-4 py-2 flex-1 rounded" />
+            <button id="greetBtn" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Greet Me</button>
+            </div>
+
+            <div id="greetingOutput" class="text-sm text-gray-700 space-y-2"></div>
+        </div>
+
         <script>
-            document.querySelector("button").addEventListener("click", runGreeting);
+
+            document.getElementById("onclick").addEventListener("click", startRegistration);
+            document.getElementById("greetBtn").addEventListener("click", runGreeting);
+
             function registerUser(user) {
             return new Promise((resolve, reject) => {
                 log('registerOutput', 'Registering user...');
                 setTimeout(() => {
                 if (user) resolve(` User ${user} registered`);
-                else reject("Name cannot be empty");
+                else reject(" Name cannot be empty");
                 }, 1000);
             });
             }
 
             function sendEmail(user) {
             return new Promise((resolve) => {
-                log('registerOutput', 'Sending confirmation email...');
+                log('registerOutput', '📧 Sending confirmation email...');
                 setTimeout(() => resolve(` Email sent to ${user}`), 1000);
             });
             }
 
             function grantAccess(user) {
             return new Promise((resolve) => {
-                log('registerOutput', 'Granting access...');
+                log('registerOutput', ' Granting access...');
                 setTimeout(() => resolve(` Access granted to ${user}`), 1000);
             });
             }
@@ -75,7 +76,7 @@
 
             function delayedGreeting(name) {
             return new Promise((resolve, reject) => {
-                if (!name) reject(" N pl-20ame cannot be empty");
+                if (!name) reject(" Name cannot be empty");
                 else setTimeout(() => resolve(` Hello, ${name}!`), 2000);
             });
             }
@@ -89,7 +90,7 @@
                 .catch(error => log("greetingOutput", error));
             }
 
-            
+        
             function log(containerId, message) {
             const container = document.getElementById(containerId);
             const p = document.createElement("div");
