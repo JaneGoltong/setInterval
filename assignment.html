@@ -11,10 +11,10 @@
             <h2 class="font-bold text-2xl text-center mb-8"> Registration</h2>
             
             <div class="flex flex-col gap-5 mb-6">
-            <input type="text" id="registerName" placeholder="Enter username" class="border px-4 py-2 w-full rounded" required />
-            <input type="email" id="email" placeholder="Enter email" class="border px-4 py-2 w-full rounded" required />
-            <input type="password" id="password" placeholder="Enter password" class="border px-4 py-2 w-full rounded" required />
-            <input type="date" id="dateOfBirth" class="border px-4 py-2 w-full rounded" required />
+                <input type="text" id="registerName" placeholder="Enter username" class="border px-4 py-2 w-full rounded" required />
+                <input type="email" id="email" placeholder="Enter email" class="border px-4 py-2 w-full rounded" required />
+                <input type="password" id="password" placeholder="Enter password" class="border px-4 py-2 w-full rounded" required />
+                <input type="date" id="dateOfBirth" class="border px-4 py-2 w-full rounded" required />
             </div>
 
             <button id="onclick" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Start Registration</button>
@@ -51,7 +51,7 @@
 
             function sendEmail(user) {
             return new Promise((resolve) => {
-                log('registerOutput', '📧 Sending confirmation email...');
+                log('registerOutput', ' Sending confirmation email...');
                 setTimeout(() => resolve(` Email sent to ${user}`), 1000);
             });
             }
